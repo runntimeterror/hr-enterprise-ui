@@ -8,15 +8,15 @@
         },
     
     
-          "functionhrenterprise96546a31Name": {
+          "functionenterpeisehrnewlambdaName": {
             "Type": "String",
-            "Default": "functionhrenterprise96546a31Name"
+            "Default": "functionenterpeisehrnewlambdaName"
           },
 
           
-          "functionhrenterprise96546a31Arn": {
+          "functionenterpeisehrnewlambdaArn": {
             "Type": "String",
-            "Default": "functionhrenterprise96546a31Arn"
+            "Default": "functionenterpeisehrnewlambdaArn"
           }
 
           
@@ -37,16 +37,16 @@
         
         
         
-      "hrservicesapi": {
+      "apiaa9cd445": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "hrservicesapi",
+          "Name": "apiaa9cd445",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "hrservicesapi"
+              "title": "apiaa9cd445"
             },
             "host": {
                 "Fn::Join": [
@@ -174,7 +174,7 @@
                             
                             {
 
-                                "Ref": "functionhrenterprise96546a31Arn"
+                                "Ref": "functionenterpeisehrnewlambdaArn"
                             },
                             
                             "/invocations"
@@ -279,7 +279,7 @@
                           
                           {
 
-                            "Ref": "functionhrenterprise96546a31Arn"
+                            "Ref": "functionenterpeisehrnewlambdaArn"
                           },
                           
                           "/invocations"
@@ -336,12 +336,12 @@
       
         
 
-        "functionhrenterprise96546a31Permissionhrservicesapi": {
+        "functionenterpeisehrnewlambdaPermissionapiaa9cd445": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionhrenterprise96546a31Name"
+                        "Ref":  "functionenterpeisehrnewlambdaName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -360,7 +360,7 @@
                             },
                             ":",
                             {
-                                "Ref": "hrservicesapi"
+                                "Ref": "apiaa9cd445"
                             },
                             "/*/*/*"
                         ]
@@ -371,7 +371,7 @@
         
         
 
-      "DeploymentAPIGWhrservicesapi": {
+      "DeploymentAPIGWapiaa9cd445": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -385,7 +385,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "hrservicesapi"
+            "Ref": "apiaa9cd445"
           }
         }
       }
@@ -393,15 +393,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "hrservicesapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "apiaa9cd445"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "hrservicesapi"
+          "Value": "apiaa9cd445"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "hrservicesapi"}
+          "Value": {"Ref": "apiaa9cd445"}
         }
     }
   }

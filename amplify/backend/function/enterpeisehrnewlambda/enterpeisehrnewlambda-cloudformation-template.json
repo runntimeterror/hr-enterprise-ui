@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "hrenterprise96546a31",
+            "enterpeisehrnewlambda",
             {
               "Fn::Join": [
                 "",
                 [
-                  "hrenterprise96546a31",
+                  "enterpeisehrnewlambda",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "hrenterpriseLambdaRoledcfb1df8",
+            "enterprisehrLambdaRoleb7c6cfdb",
             {
               "Fn::Join": [
                 "",
                 [
-                  "hrenterpriseLambdaRoledcfb1df8",
+                  "enterprisehrLambdaRoleb7c6cfdb",
                   "-",
                   {
                     "Ref": "env"

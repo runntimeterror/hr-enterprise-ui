@@ -1,6 +1,6 @@
 {
   "auth": {
-    "hrenterpriseauth": {
+    "enterprisehrdf591512df591512": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -25,26 +25,26 @@
     }
   },
   "storage": {
-    "hrenterprise": {
+    "s319ae2746": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }
   },
   "function": {
-    "hrenterprise96546a31": {
+    "enterpeisehrnewlambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "api": {
-    "hrservicesapi": {
+    "apiaa9cd445": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "hrenterprise96546a31",
+          "resourceName": "enterpeisehrnewlambda",
           "attributes": [
             "Name",
             "Arn"

@@ -84,7 +84,7 @@ export default function Dashboard() {
       }
     };
 
-    API.get("hrservicesapi", "/employees", payload)
+    API.get("apiaa9cd445", "/employees/10001", payload)
       .then(data => {
         setEmployee(data)
       })
