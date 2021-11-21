@@ -8,8 +8,8 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import './Dashboard.css'
 import EmployeeCard from './Card';
-import Upload from './Files/Upload'
-import List from './Files/List'
+import Upload from './Files/upload'
+import List from './Files/list'
 
 function stringToColor(string) {
   let hash = 0;
@@ -76,7 +76,7 @@ function a11yProps(index) {
 export default function Dashboard() {
   const imageIndex = Math.floor(Math.random() * 100)
   const [value, setValue] = useState(0);
-  const [employee, setEmployee] = useState({ currentDepartmentName: ``, currentSalary: ``, currentTitle: `` })
+  const [employee, setEmployee] = useState({})
   useEffect(async () => {
     const payload = {
       headers: {
