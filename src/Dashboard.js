@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API, Auth, Storage } from 'aws-amplify';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -9,8 +10,6 @@ import './Dashboard.css'
 import EmployeeCard from './Card';
 import Upload from './Files/Upload'
 import List from './Files/List'
-
-const API_ENDPOINT = 'http://localhost:80'
 
 function stringToColor(string) {
   let hash = 0;
@@ -75,28 +74,23 @@ function a11yProps(index) {
 }
 
 export default function Dashboard() {
-  let imageUrl = `https://randomuser.me/api/portraits/`
   const imageIndex = Math.floor(Math.random() * 100)
   const [value, setValue] = useState(0);
   const [employee, setEmployee] = useState({ currentDepartmentName: ``, currentSalary: ``, currentTitle: `` })
-  useEffect(() => {
-    const getEmployeeDetails = `${API_ENDPOINT}/employees/10018`
-    fetch(getEmployeeDetails).then(response => {
-      if (response.ok) {
-        return response.json()
+  useEffect(async () => {
+    const payload = {
+      headers: {
+        Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
       }
-    }).then(data => {
-      switch (data.gender) {
-        case "M":
-          imageUrl += `men/${imageIndex}.jpg`
-          break;
-        case "F":
-          imageUrl += `women/${imageIndex}.jpg`
-          break;
-      }
-      const employee = Object.assign({}, data, { imageUrl })
-      setEmployee(employee)
-    }).catch(err => { })
+    };
+
+    API.get("hrservicesapi", "/employees", payload)
+      .then(data => {
+        setEmployee(data)
+      })
+      .catch(err => {
+        console.log("err", err)
+      });
   }, [])
 
   const handleChange = (event, newValue) => {
