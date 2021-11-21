@@ -1,0 +1,38 @@
+{
+  "paths": [
+    {
+      "name": "/employees/{id}",
+      "lambdaFunction": "hrenterprise96546a31",
+      "privacy": {
+        "private": true,
+        "auth": [
+          "/GET"
+        ]
+      },
+      "policyResourceName": "/employees/*"
+    }
+  ],
+  "resourceName": "hrservicesapi",
+  "apiName": "hrservicesapi",
+  "functionArns": [
+    {
+      "lambdaFunction": "hrenterprise96546a31"
+    }
+  ],
+  "privacy": {
+    "auth": 1,
+    "unauth": 0,
+    "authRoleName": "amplify-hrenterprise-dev-190649-authRole",
+    "unAuthRoleName": "amplify-hrenterprise-dev-190649-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "hrenterprise96546a31",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}
