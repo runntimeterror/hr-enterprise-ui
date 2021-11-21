@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hrenterprise-dev-190649-authRole",
+      "UnauthRoleArn": "arn:aws:iam::257633160470:role/amplify-hrenterprise-dev-190649-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::257633160470:role/amplify-hrenterprise-dev-190649-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-hrenterprise-dev-190649-deployment",
+      "UnauthRoleName": "amplify-hrenterprise-dev-190649-unauthRole",
+      "StackName": "amplify-hrenterprise-dev-190649",
+      "StackId": "arn:aws:cloudformation:us-east-1:257633160470:stack/amplify-hrenterprise-dev-190649/138a3b80-4a78-11ec-8c0e-1224d13a2853",
+      "AmplifyAppId": "d1pyg5l0q9vune"
+    },
+    "categories": {
+      "auth": {
+        "hrenterpriseauth": {}
+      },
+      "function": {
+        "hrenterprise96546a31": {
+          "deploymentBucketName": "amplify-hrenterprise-dev-190649-deployment",
+          "s3Key": "amplify-builds/hrenterprise96546a31-786f5553512f5352452f-build.zip"
+        }
+      }
+    }
+  }
+}
