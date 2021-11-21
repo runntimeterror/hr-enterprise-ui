@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import './Dashboard.css'
 import EmployeeCard from './Card';
+import Upload from './Files/Upload'
+import List from './Files/List'
 
 const API_ENDPOINT = 'http://localhost:80'
 
@@ -119,7 +121,13 @@ export default function Dashboard() {
         <TabPanel value={value} index={1}>
           Item Two
         </TabPanel>
+        
       </Box>
+      <Box>
+        <Upload></Upload>
+        <List></List>
+      </Box>
+
     </>
   );
 }
