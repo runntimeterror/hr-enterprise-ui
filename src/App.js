@@ -13,20 +13,13 @@ function App() {
   return (
     <Authenticator signUpAttributes={[]}>
       {({ signOut, user }) => (
-        <div className="App">
-          <header className="App-header">
-            <div className="dashboard-wrapper">
-              <Router>
-                <Switch>
-                  <Route path="/" component={Basic}>
-                  </Route>
-                  <Redirect from="/" to="/dashboard/home" />
-                </Switch>
-              </Router>
-            </div>
-          </header>
-        </div>
-
+        <Router>
+          <Switch>
+            <Route path="/" render={() => <Basic user={user} signOut={signOut} />}>
+            </Route>
+            <Redirect from="/" to="/dashboard/home" />
+          </Switch>
+        </Router>
       )}
     </Authenticator>
   )
