@@ -11,7 +11,7 @@ Auth.configure(awsconfig);
 
 function App() {
   return (
-    <Authenticator signUpAttributes={[]}>
+    <Authenticator signUpAttributes={[]} socialProviders={['facebook', 'google']}>
       {({ signOut, user }) => (
         <Router>
           <Switch>
