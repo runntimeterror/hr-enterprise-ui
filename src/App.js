@@ -4,7 +4,7 @@ import './App.css';
 import Amplify, { Auth } from 'aws-amplify';
 import config from './aws-exports';
 import { Authenticator } from '@aws-amplify/ui-react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 var urlsIn = config.oauth.redirectSignIn.split(",");
 var urlsOut = config.oauth.redirectSignOut.split(",");
