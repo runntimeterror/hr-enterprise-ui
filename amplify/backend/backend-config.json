@@ -1,6 +1,6 @@
 {
   "auth": {
-    "enterprisehrdf591512df591512": {
+    "enterprisehr9861359f": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -9,7 +9,9 @@
         "loginMechanisms": [
           "PREFERRED_USERNAME"
         ],
-        "signupAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
