@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { API, Auth, Storage } from 'aws-amplify';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -8,6 +9,7 @@ import Table from "../../components/Table/Table.js";
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
+import { extractArrayFromResponse, getFormattedCurrency } from "../../utils"
 
 const styles = {
   cardCategoryWhite: {
@@ -42,67 +44,68 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function TableList() {
+  const [historicalDepartments, setHistoricalDepartments] = useState([[]])
+  const [historicalSalaries, setHistoricalSalaries] = useState([[]])
+  const [historicalTitles, setHistoricalTitles] = useState([[]])
+
+  useEffect(async () => {
+    const payload = {
+      headers: {
+        Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+      }
+    };
+
+    API.get("apiaa9cd445", "/history/10009", payload)
+      .then(data => {
+        setHistoricalDepartments(extractArrayFromResponse(data.departments))
+        setHistoricalSalaries(extractArrayFromResponse(data.salaries))
+        setHistoricalTitles(extractArrayFromResponse(data.titles))
+      })
+      .catch(err => {
+        console.log("err", err)
+      });
+  }, [])
   const classes = useStyles();
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+            <h4 className={classes.cardTitleWhite}>Historical Salary</h4>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"],
-              ]}
+              tableHead={["Salary", "From (Date)", "To (Date)"]}
+              tableData={historicalSalaries}
             />
           </CardBody>
         </Card>
       </GridItem>
       <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Historical Departments</h4>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park",
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten",
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"],
-              ]}
+              tableHead={["Department No", "From (Date)", "To (Date)", "Department Name"]}
+              tableData={historicalDepartments}
+            />
+          </CardBody>
+        </Card>
+      </GridItem>
+      <GridItem xs={12} sm={12} md={12}>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Historical Titles</h4>
+          </CardHeader>
+          <CardBody>
+            <Table
+              tableHeaderColor="primary"
+              tableHead={["Title", "From (Date)", "To (Date)"]}
+              tableData={historicalTitles}
             />
           </CardBody>
         </Card>
