@@ -12,14 +12,14 @@
       "AmplifyAppId": "d30pa5vzwlwd3s"
     },
     "categories": {
-      "auth": {
-        "enterprisehrdf591512df591512": {}
-      },
       "function": {
         "enterpeisehrnewlambda": {
           "deploymentBucketName": "amplify-enterprisehr-dev-110739-deployment",
-          "s3Key": "amplify-builds/enterpeisehrnewlambda-6c6f2b6a6f3844646678-build.zip"
+          "s3Key": "amplify-builds/enterpeisehrnewlambda-5777796d4e7670724967-build.zip"
         }
+      },
+      "auth": {
+        "enterprisehr9861359f": {}
       }
     }
   }
