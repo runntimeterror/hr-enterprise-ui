@@ -37,6 +37,9 @@ exports.handler = async (event) => {
       id: employee_id,
       parent_id: manager_id,
       manager_name,
+      birth_date,
+      gender,
+      hire_date,
       current_title,
       current_salary } = dbResp[0]
 
@@ -49,7 +52,10 @@ exports.handler = async (event) => {
       manager_id,
       manager_name,
       current_title,
-      current_salary
+      current_salary,
+      birth_date,
+      gender,
+      hire_date,
     }
   } catch (ex) {
     response.statusCode = 400

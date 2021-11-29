@@ -90,7 +90,7 @@ export default function AdminNavbarLinks() {
             className={classes.buttonLink}
           >
             <Notifications className={classes.icons} />
-            <span className={classes.notifications}>5</span>
+            <span className={classes.notifications}>3</span>
             <Hidden mdUp implementation="css">
               <p onClick={handleCloseNotification} className={classes.linkText}>
                 Notification
@@ -138,18 +138,6 @@ export default function AdminNavbarLinks() {
                       >
                         You{"'"}re now friend with Andrew
                       </MenuItem>
-                      <MenuItem
-                        onClick={handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        Another Notification
-                      </MenuItem>
-                      <MenuItem
-                        onClick={handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        Another One
-                      </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -195,15 +183,6 @@ export default function AdminNavbarLinks() {
                 <Paper>
                   <ClickAwayListener onClickAway={handleCloseProfile}>
                     <MenuList role="menu">
-                      <MenuItem
-                        onClick={() => {
-                          window.location.hash = "#/dashboard/user"
-                          handleCloseProfile()
-                        }}
-                        className={classes.dropdownItem}
-                      >
-                        Profile
-                      </MenuItem>
                       <MenuItem
                         onClick={handleCloseProfile}
                         className={classes.dropdownItem}

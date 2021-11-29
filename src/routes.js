@@ -17,13 +17,6 @@ const dashboardRoutes = [
     layout: "/dashboard",
   },
   {
-    path: "/user",
-    name: "User Profile",
-    icon: Person,
-    component: UserProfile,
-    layout: "/dashboard",
-  },
-  {
     path: "/table",
     name: "Historical Data",
     icon: CalendarToday,
