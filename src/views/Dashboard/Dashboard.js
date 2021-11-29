@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-// react plugin for creating charts
-import ChartistGraph from "react-chartist";
+import React, { useEffect, useState, useContext } from "react";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
+
 
 // @material-ui/icons
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -19,15 +17,20 @@ import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardIcon from "../../components/Card/CardIcon.js";
 import CardFooter from "../../components/Card/CardFooter.js";
+import CardAvatar from "../../components/Card/CardAvatar.js";
+import CardBody from "../../components/Card/CardBody.js";
+import male from "../../assets/img/faces/male.jpg";
+import female from "../../assets/img/faces/female.png"
 import { API, Auth } from 'aws-amplify';
 import { getFormattedCurrency } from '../../utils'
+import { UserContext } from '../../App'
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
-
+  const userContext = useContext(UserContext);
   const [employee, setEmployee] = useState({})
   useEffect(async () => {
     const payload = {
@@ -36,7 +39,7 @@ export default function Dashboard() {
       }
     };
 
-    API.get("apiaa9cd445", "/employees/10001", payload)
+    API.get("apiaa9cd445", `/employees/${userContext.username}`, payload)
       .then(data => {
         setEmployee(data)
       })
@@ -49,6 +52,18 @@ export default function Dashboard() {
   return (
     <div>
       <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card profile>
+            <CardAvatar profile>
+              <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                <img src={employee.gender === 'M' ? male : female} alt="..." />
+              </a>
+            </CardAvatar>
+            <CardBody profile>
+              <h1 className={classes.cardTitle}>{`${employee.first_name} ${employee.last_name}`}</h1>
+            </CardBody>
+          </Card>
+        </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="warning" stats icon>

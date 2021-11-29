@@ -42,6 +42,13 @@ const dashboardStyle = {
     paddingTop: "10px",
     marginBottom: "0",
   },
+  cardTitle: {
+    color: grayColor[0],
+    margin: "0",
+    marginTop: "0",
+    paddingTop: "10px",
+    marginBottom: "0",
+  },
   cardCategoryWhite: {
     color: "rgba(" + hexToRgb(whiteColor) + ",.62)",
     margin: "0",
