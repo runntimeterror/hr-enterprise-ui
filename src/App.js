@@ -33,7 +33,7 @@ Auth.configure(configUpdate);
 
 function App() {
   return (
-    <Authenticator signUpAttributes={[]} socialProviders={['facebook', 'google']}>
+    <Authenticator signUpAttributes={['email']} socialProviders={['facebook', 'google']}>
       {({ signOut, user }) => (
         <Router>
           <Switch>
