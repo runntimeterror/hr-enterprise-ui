@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-// react plugin for creating charts
-import ChartistGraph from "react-chartist";
+import React, { useEffect, useState, useContext } from "react";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
-import Icon from "@material-ui/core/Icon";
+
 
 // @material-ui/icons
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -21,13 +19,14 @@ import CardIcon from "../../components/Card/CardIcon.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 import { API, Auth } from 'aws-amplify';
 import { getFormattedCurrency } from '../../utils'
+import { UserContext } from '../../App'
 
 import styles from "../../assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
-
+  const userContext = useContext(UserContext);
   const [employee, setEmployee] = useState({})
   useEffect(async () => {
     const payload = {
@@ -36,7 +35,7 @@ export default function Dashboard() {
       }
     };
 
-    API.get("apiaa9cd445", "/employees/10001", payload)
+    API.get("apiaa9cd445", `/employees/${userContext.username}`, payload)
       .then(data => {
         setEmployee(data)
       })

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { API, Auth, Storage } from 'aws-amplify';
+import React, { useState, useEffect, useContext } from "react";
+import { API, Auth } from 'aws-amplify';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -9,7 +9,8 @@ import Table from "../../components/Table/Table.js";
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
-import { extractArrayFromResponse, getFormattedCurrency } from "../../utils"
+import { extractArrayFromResponse } from "../../utils"
+import { UserContext } from "../../App"
 
 const styles = {
   cardCategoryWhite: {
@@ -47,7 +48,7 @@ export default function TableList() {
   const [historicalDepartments, setHistoricalDepartments] = useState([[]])
   const [historicalSalaries, setHistoricalSalaries] = useState([[]])
   const [historicalTitles, setHistoricalTitles] = useState([[]])
-
+  const userContext = useContext(UserContext)
   useEffect(async () => {
     const payload = {
       headers: {
@@ -55,7 +56,7 @@ export default function TableList() {
       }
     };
 
-    API.get("apiaa9cd445", "/history/10009", payload)
+    API.get("apiaa9cd445", `/history/${userContext.username}`, payload)
       .then(data => {
         setHistoricalDepartments(extractArrayFromResponse(data.departments))
         setHistoricalSalaries(extractArrayFromResponse(data.salaries))
