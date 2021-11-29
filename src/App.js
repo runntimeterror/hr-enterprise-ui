@@ -15,21 +15,23 @@ const oauth = {
   redirectSignOut: config.oauth.redirectSignOut,
   responseType: config.oauth.responseType
 };
-var hasLocalhost  = (hostname) => Boolean(hostname.match(/localhost/) || hostname.match(/127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/));
-var hasHostname   = (hostname) => Boolean(hostname.includes(window.location.hostname));
-var isLocalhost   = hasLocalhost(window.location.hostname);
+var hasLocalhost = (hostname) => Boolean(hostname.match(/localhost/) || hostname.match(/127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/));
+var hasHostname = (hostname) => Boolean(hostname.includes(window.location.hostname));
+var isLocalhost = hasLocalhost(window.location.hostname);
 if (isLocalhost) {
-  urlsIn.forEach((e) =>   { if (hasLocalhost(e)) { oauth.redirectSignIn = e; }});
-  urlsOut.forEach((e) =>  { if (hasLocalhost(e)) { oauth.redirectSignOut = e; }});
+  urlsIn.forEach((e) => { if (hasLocalhost(e)) { oauth.redirectSignIn = e; } });
+  urlsOut.forEach((e) => { if (hasLocalhost(e)) { oauth.redirectSignOut = e; } });
 }
 else {
-  urlsIn.forEach((e) =>   { if (hasHostname(e)) { oauth.redirectSignIn = e; }});
-  urlsOut.forEach((e) =>  { if (hasHostname(e)) { oauth.redirectSignOut = e; }});
+  urlsIn.forEach((e) => { if (hasHostname(e)) { oauth.redirectSignIn = e; } });
+  urlsOut.forEach((e) => { if (hasHostname(e)) { oauth.redirectSignOut = e; } });
 }
 var configUpdate = config;
 configUpdate.oauth = oauth;
 Amplify.configure(configUpdate);
 Auth.configure(configUpdate);
+
+export const UserContext = React.createContext();
 
 function App() {
   return (
@@ -37,7 +39,7 @@ function App() {
       {({ signOut, user }) => (
         <Router>
           <Switch>
-            <Route path="/" render={() => <Basic user={user} signOut={signOut} />}>
+            <Route path="/" render={() => <UserContext.Provider value={user}><Basic /></UserContext.Provider>}>
             </Route>
             <Redirect from="/" to="/dashboard/home" />
           </Switch>

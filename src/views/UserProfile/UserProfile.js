@@ -133,7 +133,7 @@ export default function UserProfile() {
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
                   <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                    labelText="Lamborghini Mercy, I'm in that two seat Lambo."
                     id="about-me"
                     formControlProps={{
                       fullWidth: true,
