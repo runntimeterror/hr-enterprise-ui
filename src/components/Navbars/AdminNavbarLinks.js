@@ -18,9 +18,10 @@ import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "../CustomInput/CustomInput.js";
 import Button from "../CustomButtons/Button.js";
-
+import { API, Auth } from 'aws-amplify';
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import { UserContext } from "../../App.js";
+import { throttle } from 'lodash'
 
 const useStyles = makeStyles(styles);
 
@@ -28,6 +29,9 @@ export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
+  const [openSearchResults, setopenSearchResults] = React.useState(null)
+  const [searchHits, setSearchHits] = React.useState([])
+
   const handleClickNotification = (event) => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
@@ -35,6 +39,42 @@ export default function AdminNavbarLinks() {
       setOpenNotification(event.currentTarget);
     }
   };
+
+  const callSearchAPI = async (searchText) => {
+    const payload = {
+      headers: {
+        Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+      }
+    };
+
+    API.get("apiaa9cd445", `/search/${searchText}`, payload)
+      .then(data => {
+        if (data.matches && data.matches.length > 0) {
+          setSearchHits(data.matches.slice(0, 5))
+          setopenSearchResults(true)
+        }
+        else {
+          setSearchHits([])
+          setopenSearchResults(null)
+        }
+      })
+      .catch(err => {
+        setSearchHits([])
+        setopenSearchResults(null)
+        console.log("err", err)
+      });
+  }
+
+  const throttledSearchHandler = throttle((event) => {
+    const searchText = event.target.value
+    console.log(searchText)
+    if (searchText.length > 3) {
+      //call lambda to fetch matching names
+      callSearchAPI(searchText)
+    } else {
+      setopenSearchResults(false)
+    }
+  }, 500)
   const handleCloseNotification = () => {
     setOpenNotification(null);
   };
@@ -57,6 +97,7 @@ export default function AdminNavbarLinks() {
               className: classes.margin + " " + classes.search,
             }}
             inputProps={{
+              onChange: throttledSearchHandler,
               placeholder: "Search",
               inputProps: {
                 "aria-label": "Search",
@@ -66,6 +107,45 @@ export default function AdminNavbarLinks() {
           <Button color="white" aria-label="edit" justIcon round>
             <Search />
           </Button>
+          <div className={classes.manager}>
+            <Poppers
+              open={Boolean(openSearchResults)}
+              anchorEl={openSearchResults}
+              transition
+              disablePortal
+              className={
+                classNames({ [classes.popperClose]: !openSearchResults }) +
+                " " +
+                classes.popperNav
+              }
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  id="notification-menu-list-grow"
+                  style={{
+                    transformOrigin:
+                      placement === "bottom" ? "center top" : "center bottom",
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleCloseNotification}>
+                      <MenuList role="menu">
+                        {searchHits.map(hit => {
+                          return <MenuItem
+                            onClick={handleCloseNotification}
+                            className={classes.dropdownItem}
+                          >
+                            {hit.emp_name}
+                          </MenuItem>
+                        })}
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Poppers>
+          </div>
         </div>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
