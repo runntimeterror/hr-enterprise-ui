@@ -71,7 +71,7 @@ export default function AdminNavbarLinks() {
     console.log(searchText)
     if (searchText.length > 3) {
       //call lambda to fetch matching names
-      callSearchAPI(searchText, event.currentTarget)
+      callSearchAPI(searchText, event.target)
     } else {
       setopenSearchResults(false)
     }
