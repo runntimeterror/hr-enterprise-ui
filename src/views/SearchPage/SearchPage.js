@@ -30,11 +30,12 @@ import styles from "../../assets/jss/material-dashboard-react/views/dashboardSty
 
 const useStyles = makeStyles(styles);
 
-export default function SearchPage() {
+export default function SearchPage(props) {
   const userContext = useContext(UserContext);
   const [employee, setEmployee] = useState({})
   const { searchfor } = useParams()
   useEffect(async () => {
+    console.log(props)
     const payload = {
       headers: {
         Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
@@ -48,7 +49,7 @@ export default function SearchPage() {
       .catch(err => {
         console.log("err", err)
       });
-  }, [])
+  },[props.match.params.searchfor])
 
   const classes = useStyles();
   return (
