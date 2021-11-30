@@ -296,6 +296,11 @@ const sidebarStyle = (theme) => ({
       bottom: "13px",
     },
   },
+  searchLink: {
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  }
 });
 
 export default sidebarStyle;

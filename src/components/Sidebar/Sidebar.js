@@ -30,10 +30,10 @@ export default function Sidebar(props) {
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        var activePro = " ";
+        var additionalClass = " ";
         var listItemClasses;
-        if (prop.path === "/upgrade-to-pro") {
-          activePro = classes.activePro + " ";
+        if (prop.path === "/search/:searchfor") {
+          additionalClass = classes.searchLink + " ";
           listItemClasses = classNames({
             [" " + classes[color]]: true,
           });
@@ -48,7 +48,7 @@ export default function Sidebar(props) {
         return (
           <NavLink
             to={prop.layout + prop.path}
-            className={activePro + classes.item}
+            className={additionalClass + classes.item}
             activeClassName="active"
             key={key}
           >

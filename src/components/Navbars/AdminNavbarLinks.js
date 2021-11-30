@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import { Link } from 'react-router-dom'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -70,7 +71,7 @@ export default function AdminNavbarLinks() {
     console.log(searchText)
     if (searchText.length > 3) {
       //call lambda to fetch matching names
-      callSearchAPI(searchText, event.currentTarget)
+      callSearchAPI(searchText, event.target)
     } else {
       setopenSearchResults(false)
     }
@@ -129,14 +130,14 @@ export default function AdminNavbarLinks() {
                   }}
                 >
                   <Paper>
-                    <ClickAwayListener onClickAway={handleCloseNotification}>
+                    <ClickAwayListener onClickAway={handleCloseProfile}>
                       <MenuList role="menu">
                         {searchHits.map(hit => {
                           return <MenuItem
-                            onClick={handleCloseNotification}
+                            onClick={handleCloseProfile}
                             className={classes.dropdownItem}
                           >
-                            {hit.emp_name}
+                            <Link to={`/dashboard/search/${hit.emp_no}`}>{hit.emp_name}</Link>
                           </MenuItem>
                         })}
                       </MenuList>
