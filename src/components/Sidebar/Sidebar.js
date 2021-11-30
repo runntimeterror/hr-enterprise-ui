@@ -32,7 +32,7 @@ export default function Sidebar(props) {
       {routes.map((prop, key) => {
         var additionalClass = " ";
         var listItemClasses;
-        if (prop.path === "/search") {
+        if (prop.path === "/search/:searchfor") {
           additionalClass = classes.searchLink + " ";
           listItemClasses = classNames({
             [" " + classes[color]]: true,
