@@ -40,7 +40,7 @@ export default function AdminNavbarLinks() {
     }
   };
 
-  const callSearchAPI = async (searchText) => {
+  const callSearchAPI = async (searchText, searchTextBox) => {
     const payload = {
       headers: {
         Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
@@ -51,7 +51,7 @@ export default function AdminNavbarLinks() {
       .then(data => {
         if (data.matches && data.matches.length > 0) {
           setSearchHits(data.matches.slice(0, 5))
-          setopenSearchResults(true)
+          setopenSearchResults(searchTextBox)
         }
         else {
           setSearchHits([])
@@ -70,7 +70,7 @@ export default function AdminNavbarLinks() {
     console.log(searchText)
     if (searchText.length > 3) {
       //call lambda to fetch matching names
-      callSearchAPI(searchText)
+      callSearchAPI(searchText, event.currentTarget)
     } else {
       setopenSearchResults(false)
     }
