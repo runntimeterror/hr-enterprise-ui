@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -32,7 +32,7 @@ export default function AdminNavbarLinks() {
   const [openProfile, setOpenProfile] = React.useState(null);
   const [openSearchResults, setopenSearchResults] = React.useState(null)
   const [searchHits, setSearchHits] = React.useState([])
-
+  const history = useHistory();
   const handleClickNotification = (event) => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
@@ -66,6 +66,11 @@ export default function AdminNavbarLinks() {
       });
   }
 
+  const handleSearchItemClick = (emp_no) => {
+    setopenSearchResults(null)
+    history.push(`/dashboard/search/${emp_no}`)
+  }
+
   const throttledSearchHandler = throttle((event) => {
     const searchText = event.target.value
     console.log(searchText)
@@ -73,7 +78,7 @@ export default function AdminNavbarLinks() {
       //call lambda to fetch matching names
       callSearchAPI(searchText, event.target)
     } else {
-      setopenSearchResults(false)
+      setopenSearchResults(null)
     }
   }, 500)
   const handleCloseNotification = () => {
@@ -134,10 +139,10 @@ export default function AdminNavbarLinks() {
                       <MenuList role="menu">
                         {searchHits.map(hit => {
                           return <MenuItem
-                            onClick={handleCloseProfile}
+                            onClick={() => { handleSearchItemClick(hit.emp_no) }}
                             className={classes.dropdownItem}
                           >
-                            <Link to={`/dashboard/search/${hit.emp_no}`}>{hit.emp_name}</Link>
+                            {hit.emp_name}
                           </MenuItem>
                         })}
                       </MenuList>
