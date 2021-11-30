@@ -1,8 +1,10 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import FileCopyOutlined from "@material-ui/icons/FileCopyOutlined";
 import CalendarToday from "@material-ui/icons/CalendarTodayOutlined"
+import SearchIcon from "@material-ui/icons/Search"
 // core ../components/views for Admin layout
 import DashboardPage from "./views/Dashboard/Dashboard.js";
+import SearchPage from "./views/SearchPage/SearchPage"
 import TableList from "./views/TableList/TableList.js";
 import Typography from "./views/Typography/Typography.js";
 
@@ -13,6 +15,13 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: DashboardPage,
     layout: "/dashboard",
+  },
+  {
+    path: "/search/:searchfor",
+    name: "Search Result",
+    icon: SearchIcon,
+    component: SearchPage,
+    layout: "/dashboard"
   },
   {
     path: "/table",

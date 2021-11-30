@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useParams } from 'react-router-dom'
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -29,9 +30,10 @@ import styles from "../../assets/jss/material-dashboard-react/views/dashboardSty
 
 const useStyles = makeStyles(styles);
 
-export default function Dashboard() {
+export default function SearchPage() {
   const userContext = useContext(UserContext);
   const [employee, setEmployee] = useState({})
+  const { searchfor } = useParams()
   useEffect(async () => {
     const payload = {
       headers: {
@@ -39,7 +41,7 @@ export default function Dashboard() {
       }
     };
 
-    API.get("apiaa9cd445", `/employees/${userContext.username}`, payload)
+    API.get("apiaa9cd445", `/search-result/${searchfor}/${userContext.username}`, payload)
       .then(data => {
         setEmployee(data)
       })
