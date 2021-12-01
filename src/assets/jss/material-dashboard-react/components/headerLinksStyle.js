@@ -25,6 +25,9 @@ const headerLinksStyle = (theme) => ({
       },
     },
   },
+  searchLoading: {
+    marginLeft: "-25px;"
+  },
   linkText: {
     zIndex: "4",
     ...defaultFont,
