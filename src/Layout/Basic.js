@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,6 +51,7 @@ export default function Basic({ ...rest }) {
 
   return (
     <div className={classes.wrapper}>
+      <Redirect from="/" to="/dashboard/home" />
       <Sidebar
         routes={routes}
         logoText={"CMPE 272"}
