@@ -41,7 +41,6 @@ function App() {
           <Switch>
             <Route path="/" render={() => <UserContext.Provider value={user}><Basic /></UserContext.Provider>}>
             </Route>
-            <Redirect from="/" to="/dashboard/home" />
           </Switch>
         </Router>
       )}
