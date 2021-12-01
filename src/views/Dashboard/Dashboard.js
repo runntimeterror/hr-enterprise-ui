@@ -21,6 +21,7 @@ import CardAvatar from "../../components/Card/CardAvatar.js";
 import CardBody from "../../components/Card/CardBody.js";
 import male from "../../assets/img/faces/male.jpg";
 import female from "../../assets/img/faces/female.png"
+import placeholder from "../../assets/img/faces/placeholder.jpeg"
 import { API, Auth } from 'aws-amplify';
 import { getFormattedCurrency } from '../../utils'
 import { UserContext } from '../../App'
@@ -47,7 +48,18 @@ export default function Dashboard() {
         console.log("err", err)
       });
   }, [])
-
+  let imageSource
+  switch (employee.gender) {
+    case 'M':
+      imageSource = male
+      break;
+    case 'F':
+      imageSource = female
+      break;
+    default:
+      imageSource = placeholder
+      break;
+  }
   const classes = useStyles();
   return (
     <div>
@@ -56,11 +68,13 @@ export default function Dashboard() {
           <Card profile>
             <CardAvatar profile>
               <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={employee.gender === 'M' ? male : female} alt="..." />
+                <img src={imageSource} alt="..." />
               </a>
             </CardAvatar>
             <CardBody profile>
-              <h1 className={classes.cardTitle}>{`${employee.first_name} ${employee.last_name}`}</h1>
+              <h1 className={classes.cardTitle}>{employee.first_name ?
+                `${employee.first_name} ${employee.last_name}`
+                : null}</h1>
             </CardBody>
           </Card>
         </GridItem>
