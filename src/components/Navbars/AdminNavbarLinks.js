@@ -13,8 +13,6 @@ import Poppers from "@material-ui/core/Popper";
 import Divider from "@material-ui/core/Divider";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
-import Notifications from "@material-ui/icons/Notifications";
-import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "../CustomInput/CustomInput.js";
@@ -23,23 +21,17 @@ import { API, Auth } from 'aws-amplify';
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import { UserContext } from "../../App.js";
 import { throttle } from 'lodash'
+import BounceLoader from "react-spinners/BounceLoader"
 
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
-  const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
   const [openSearchResults, setopenSearchResults] = React.useState(null)
   const [searchHits, setSearchHits] = React.useState([])
+  const [searching, setSearching] = React.useState(false)
   const history = useHistory();
-  const handleClickNotification = (event) => {
-    if (openNotification && openNotification.contains(event.target)) {
-      setOpenNotification(null);
-    } else {
-      setOpenNotification(event.currentTarget);
-    }
-  };
 
   const callSearchAPI = async (searchText, searchTextBox) => {
     const payload = {
@@ -47,9 +39,10 @@ export default function AdminNavbarLinks() {
         Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
       }
     };
-
+    setSearching(true)
     API.get("apiaa9cd445", `/search/${searchText}`, payload)
       .then(data => {
+        setSearching(false)
         if (data.matches && data.matches.length > 0) {
           setSearchHits(data.matches.slice(0, 5))
           setopenSearchResults(searchTextBox)
@@ -60,6 +53,7 @@ export default function AdminNavbarLinks() {
         }
       })
       .catch(err => {
+        setSearching(false)
         setSearchHits([])
         setopenSearchResults(null)
         console.log("err", err)
@@ -81,9 +75,7 @@ export default function AdminNavbarLinks() {
       setopenSearchResults(null)
     }
   }, 500)
-  const handleCloseNotification = () => {
-    setOpenNotification(null);
-  };
+
   const handleClickProfile = (event) => {
     if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null);
@@ -110,9 +102,9 @@ export default function AdminNavbarLinks() {
               },
             }}
           />
-          <Button color="white" aria-label="edit" justIcon round>
-            <Search />
-          </Button>
+          <span color="white" className={classes.searchLoading} aria-label="edit" justIcon round>
+            <BounceLoader loading={searching} color={'#36D7B7'} size={20} />
+          </span>
           <div className={classes.manager}>
             <Poppers
               open={Boolean(openSearchResults)}
