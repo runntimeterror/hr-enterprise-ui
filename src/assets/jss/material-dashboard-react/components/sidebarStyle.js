@@ -297,9 +297,7 @@ const sidebarStyle = (theme) => ({
     },
   },
   searchLink: {
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
+    display: "none",
   }
 });
 
