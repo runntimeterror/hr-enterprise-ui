@@ -6,7 +6,7 @@ import SearchIcon from "@material-ui/icons/Search"
 import DashboardPage from "./views/Dashboard/Dashboard.js";
 import SearchPage from "./views/SearchPage/SearchPage"
 import TableList from "./views/TableList/TableList.js";
-import Typography from "./views/Typography/Typography.js";
+import Documents from "./views/Documents/Documents.js";
 
 const dashboardRoutes = [
   {
@@ -34,7 +34,7 @@ const dashboardRoutes = [
     path: "/documents",
     name: "Documents",
     icon: FileCopyOutlined,
-    component: Typography,
+    component: Documents,
     layout: "/dashboard",
   }
 ];
