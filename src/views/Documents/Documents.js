@@ -80,7 +80,7 @@ function List() {
                 //    var result= await Storage.get(data.row.key, { level: 'private', download: true })
 
                 const result = await Storage.get(data.row.key, { download: true });
-                downloadBlob(result.Body, 'filename');
+                downloadBlob(result.Body, data.row.key);
             }
             catch (err) {
                 console.error(err)

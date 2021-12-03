@@ -17,25 +17,16 @@ export default function Footer() {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a href="#home" className={classes.block}>
-                Home
+              <a href="mailto:soham.bhattacharjee@sjsu.edu" className={classes.block}>
+                Soham
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#company" className={classes.block}>
-                Company
+              <a href="mailto:rajat.banerjee@sjsu.edu" className={classes.block}>
+               Rajat
               </a>
             </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#portfolio" className={classes.block}>
-                Portfolio
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="#blog" className={classes.block}>
-                Blog
-              </a>
-            </ListItem>
+            
           </List>
         </div>
       </div>
